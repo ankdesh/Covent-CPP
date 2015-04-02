@@ -74,8 +74,8 @@ int main(int argc, char *argv[])
 	}
 
 	// Represent MNIST datafiles as C++ file streams f1 and f2 respectively
-	ifstream f1("t10k-images-idx3-ubyte",ios::in | ios::binary); // image data
-	ifstream f2("t10k-labels-idx1-ubyte",ios::in | ios::binary); // label data
+	ifstream f1("t10k-images.idx3-ubyte",ios::in | ios::binary); // image data
+	ifstream f2("t10k-labels.idx1-ubyte",ios::in | ios::binary); // label data
 	
 	if (!f1.is_open() || !f2.is_open())
 	{

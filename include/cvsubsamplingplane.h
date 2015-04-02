@@ -41,7 +41,7 @@ preliminary and subject to change at any time, without notice.
 #ifndef CVSUBSAMPLINGPLANE_H
 #define CVSUBSAMPLINGPLANE_H
 
-#include <opencv/cv.h>
+#include <cv.h>
 #include <string>
 #include <vector>
 #include "cvgenericplane.h"

@@ -32,10 +32,12 @@ SET(TESTMNIST_SRCS tst/testmnist.cpp)
 SET (INCLUDE_SEARCH_PATH
 	/usr/local/include /usr/include /usr/local/include/opencv/
 	/usr/include/opencv/ c:/program\ files/opencv/include
+  /home/ankdesh/workspace/vision/opencv/opencv-3.0/install/include/opencv/
 )
 
 SET (LIBRARY_SEARCH_PATH
 	/usr/local/lib /usr/lib c:/program\ files/opencv/lib c:/windows/system32
+  /home/ankdesh/workspace/vision/opencv/opencv-3.0/install/lib
 )
 
 # Find OpenCV and Expat
@@ -43,17 +45,19 @@ FIND_PATH(CV_H NAMES cv.h PATHS ${INCLUDE_SEARCH_PATH} )
 FIND_PATH(HIGHGUI_H NAMES highgui.h PATHS ${INCLUDE_SEARCH_PATH} )
 FIND_PATH(EXPAT_H NAMES expat.h	PATHS ${INCLUDE_SEARCH_PATH} )
 
-FIND_LIBRARY(LIBCV NAMES cv PATHS ${LIBRARY_SEARCH_PATH} )
-FIND_LIBRARY(LIBHIGHGUI NAMES highgui PATHS ${LIBRARY_SEARCH_PATH} )
+FIND_LIBRARY(LIBCV NAMES opencv_core PATHS ${LIBRARY_SEARCH_PATH} )
+FIND_LIBRARY(LIBHIGHGUI NAMES opencv_highgui PATHS ${LIBRARY_SEARCH_PATH} )
+FIND_LIBRARY(LIBIMGPROC NAMES opencv_imgproc PATHS ${LIBRARY_SEARCH_PATH} )
 FIND_LIBRARY(LIBEXPAT NAMES expat PATHS ${LIBRARY_SEARCH_PATH} )
 
-INCLUDE_DIRECTORIES(include/ ${CV_H} ${HIGHGUI_H} ${EXPAT_H})
+INCLUDE_DIRECTORIES(include ${CV_H} ${HIGHGUI_H} ${EXPAT_H})
+INCLUDE_DIRECTORIES(${CV_H}/../)
 
 # Here is out library
 ADD_LIBRARY(cvconvnet STATIC ${CVCONVNET_SRCS})
 
 # Here are our test programs
-ADD_EXECUTABLE(testimg ${TESTIMG_SRCS})
+#ADD_EXECUTABLE(testimg ${TESTIMG_SRCS})
 ADD_EXECUTABLE(testmnist ${TESTMNIST_SRCS})
 
 # Compiler options are different for Release and Debug
@@ -68,6 +72,6 @@ ELSE ()
 ENDIF ()
 
 # We should link our test programs to libraries
-TARGET_LINK_LIBRARIES(testimg cvconvnet ${LIBCV} ${LIBHIGHGUI} ${LIBEXPAT})
+#TARGET_LINK_LIBRARIES(testimg cvconvnet ${LIBIMGPROC} ${LIBHIGHGUI} ${LIBCV} ${LIBEXPAT})
 TARGET_LINK_LIBRARIES(testmnist cvconvnet ${LIBCV} ${LIBHIGHGUI} ${LIBEXPAT})
 
