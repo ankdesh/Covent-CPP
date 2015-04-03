@@ -41,7 +41,6 @@ preliminary and subject to change at any time, without notice.
 #include "cvconvnet.h"
 #include <opencv/highgui.h> 
 #include <opencv/cv.h> 
-#include <opencv2/imgproc/imgproc_c.h>
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -84,12 +83,6 @@ int main(int argc, char *argv[])
 		return 1;
 	}
 
-	// create some GUI
-	cvNamedWindow("Image", CV_WINDOW_AUTOSIZE); 
-	cvMoveWindow("Image", inputsz.height, inputsz.width);
-	CvFont font;
-	cvInitFont(&font, CV_FONT_HERSHEY_PLAIN, 1.0, 1.0);
-
 	// Grayscale img pointer
 	IplImage* img;
 
@@ -107,18 +100,7 @@ int main(int argc, char *argv[])
 		}
 
 		// Forward propagate the grayscale (8 bit) image and get the value
- 		ostringstream val;
-		val << (int) net.fprop(img);
-
-		// Make image colorful
-		cvCvtColor(img,colorimg,CV_GRAY2RGB);
-
-		// Draw green text for the recognized number on top of the image
-		cvPutText(colorimg, val.str().c_str(), cvPoint(0,inputsz.height/2), &font, CV_RGB(0,255,0));
-
-		// show the image
-		cvShowImage("Image", colorimg );
-		cvWaitKey(1000);
+    cout << "Image is recognized as " << (int) net.fprop(img) << endl;
 		
 		cvReleaseImage(&img);
 	}
