@@ -101,6 +101,12 @@ int main(int argc, char *argv[])
 
 		// Forward propagate the grayscale (8 bit) image and get the value
     cout << "Image is recognized as " << (int) net.fprop(img) << endl;
+  
+    // Dump learned network
+    std::fstream netFileOut;
+    netFileOut.open("NetGenerated.xml", std::fstream::out);
+    netFileOut << net.toString();
+    netFileOut.close();
 		
 		cvReleaseImage(&img);
 	}
